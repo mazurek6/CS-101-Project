@@ -1,1 +1,12 @@
 
+def mendels_law(hom, het, rec):
+  pop = hom + het + rec
+  probhompair= ((hom)/(pop)) * ((hom-1)/(pop-1))
+  probhetpair = (het/pop)*((het-1)/(pop-1))
+  probrecpair = (rec/pop)*((rec-1)/((pop-1)))
+  probhomhet = (hom/pop)*(het/(pop-1))
+  probhetrec = (het/pop)*(rec/(pop-1)) 
+  probhomrec = (hom/pop)*(rec)/((pop-1))
+  
+  return(probhompair + (.75*probhetpair) + 2*probhomhet+ probhetrec +2*probhomrec)
+
