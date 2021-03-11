@@ -1,31 +1,9 @@
-def source_rna(protein):
-  sequence = 1 #the number of possibilities
-  genetic_code = {
-        'UUU': 'F', 'UUC': 'F', 'UUA': 'L', 'UUG': 'L',        'CUU': 'L', 'CUC': 'L', 'CUA': 'L', 'CUG': 'L',
-        'AUU': 'I', 'AUC': 'I', 'AUA': 'I', 'AUG': 'M',        'GUU': 'V', 'GUC': 'V', 'GUA': 'V', 'GUG': 'V',
-
-        'UCU': 'S', 'UCC': 'S', 'UCA': 'S', 'UCG': 'S',        'CCU': 'P', 'CCC': 'P', 'CCA': 'P', 'CCG': 'P',
-        'ACU': 'T', 'ACC': 'T', 'ACA': 'T', 'ACG': 'T',        'GCU': 'A', 'GCC': 'A', 'GCA': 'A', 'GCG': 'A',
-
-        'UAU': 'Y', 'UAC': 'Y', 'UAA': '*', 'UAG': '*',        'CAU': 'H', 'CAC': 'H', 'CAA': 'Q', 'CAG': 'Q',
-        'AAU': 'N', 'AAC': 'N', 'AAA': 'K', 'AAG': 'K',        'GAU': 'D', 'GAC': 'D', 'GAA': 'E', 'GAG': 'E',
-
-        'UGU': 'C', 'UGC': 'C', 'UGA': '*', 'UGG': 'W',        'CGU': 'R', 'CGC': 'R', 'CGA': 'R', 'CGG': 'R',
-        'AGU': 'S', 'AGC': 'S', 'AGA': 'R', 'AGG': 'R',        'GGU': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
-    }
-  for i in protein: 
-    sequence = sequence * len([number for number, name in genetic_code.items() if name == i]) 
-  sequence = sequence * 3 #times 3 because there are 3 keys for stoping
-  return sequence
-  
-print(source_rna('MA')) #testing block 
-
 def splice_rna(dna, intron_list):
     exons = dna
     for intron in intron_list:   
         exons = exons.replace(intron,'') #remove intron from dna
     rna = ''
-    for symbol in exons:     #turns dna into rna
+    for symbol in exons:            #turns dna into rna
         if symbol == 'A':
             rna = rna + 'A'
         elif symbol == 'T':
@@ -52,10 +30,9 @@ def splice_rna(dna, intron_list):
     }
     amino = ""    #string of protein codes
     for item in rna_list:
-        if genetic_code.get(item, "Invalid") != '*':
+        if genetic_code.get(item, "Invalid") == "*":
+            break
+        else:
             amino += genetic_code.get(item)
     return(amino)  
     
-dna = "ATGGTCTACATAGCTGACAAACAGCACGTAGCAATCGGTCGAATCTCGAGAGGCATATGGTCACATGATCGGTCGAGCGTGTTTCAAAGTTTGCGCCTAG"
-intron_list = ["ATCGGTCGAA", "ATCGGTCGAGCGTGT"]
-print(splice_rna(dna, intron_list)) #testing block
